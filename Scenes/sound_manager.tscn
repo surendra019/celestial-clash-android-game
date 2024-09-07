@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://7nry0cokvp2x"]
+
+[ext_resource type="Script" path="res://Scripts/sound_manager.gd" id="1_oc4oo"]
+[ext_resource type="AudioStream" uid="uid://cfuof6y3xrirp" path="res://Sounds/Notification.wav" id="2_2h8n0"]
+[ext_resource type="AudioStream" uid="uid://bbm4qwewd40qd" path="res://Sounds/Deploy.wav" id="3_kgtf5"]
+[ext_resource type="AudioStream" uid="uid://bxy1ou11161j4" path="res://Sounds/button-40.wav" id="4_gqjyw"]
+[ext_resource type="AudioStream" uid="uid://ie4gk8cli0gw" path="res://Sounds/bg_music_menu.mp3" id="5_xj1q6"]
+[ext_resource type="AudioStream" uid="uid://xh06rq1dir84" path="res://Sounds/punch.mp3" id="6_qrtf8"]
+[ext_resource type="AudioStream" uid="uid://cj0t2r53e8tup" path="res://Sounds/collectcoin.mp3" id="7_grfsc"]
+
+[node name="sound_manager" type="Node2D"]
+script = ExtResource("1_oc4oo")
+
+[node name="status_message" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2h8n0")
+
+[node name="bullet_fire" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kgtf5")
+
+[node name="button" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gqjyw")
+
+[node name="bg_music_menu" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_xj1q6")
+
+[node name="dmg_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_qrtf8")
+volume_db = 24.0
+
+[node name="coin_collected" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_grfsc")

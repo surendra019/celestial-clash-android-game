@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckkp5wnc851cd"]
+
+[sub_resource type="GDScript" id="GDScript_yaqp2"]
+resource_name = "mode_menu"
+script/source = "extends PopupPanel
+
+func _ready():
+	self.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
+	self.position = Manager.win_size/2- self.size/2
+"
+
+[node name="PopupMenu" type="PopupPanel"]
+initial_position = 1
+title = "Settings"
+size = Vector2i(298, 300)
+mode = 3
+visible = true
+borderless = false
+script = SubResource("GDScript_yaqp2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 294.0
+offset_bottom = 296.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="easy" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "EASY"
+
+[node name="medium" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "MEDIUM"
+
+[node name="hard" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hard"

@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://db3jcqcwaqqqi"]
+
+[ext_resource type="StyleBox" uid="uid://gfbblusd8nrk" path="res://Styles/PanelContainer/new_style_box_flat.tres" id="1_jwrjd"]
+[ext_resource type="Script" path="res://Scripts/panel_container.gd" id="2_iisdv"]
+[ext_resource type="FontFile" uid="uid://dlb1lv683hi78" path="res://Fonts/Poppins/Poppins-Medium.ttf" id="2_suvo4"]
+[ext_resource type="StyleBox" uid="uid://cpn8amhmp2euf" path="res://Styles/PanelContainer/panel_style_in.tres" id="4_axw1q"]
+[ext_resource type="StyleBox" uid="uid://c2ihwna48r8ut" path="res://Styles/buttons/button.tres" id="4_gwat3"]
+
+[node name="game_over" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 432.0
+offset_bottom = 904.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.5
+offset_top = -63.0
+offset_right = 98.5
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_jwrjd")
+script = ExtResource("2_iisdv")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer" groups=["label_of_go"]]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_suvo4")
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_axw1q")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Revive_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer" groups=["revive_btn_of_go"]]
+custom_minimum_size = Vector2(177, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_gwat3")
+text = "Revive(Ad)"
+
+[node name="Restart_btn" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer" groups=["restart_btn_of_go"]]
+custom_minimum_size = Vector2(177, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_suvo4")
+theme_override_styles/normal = ExtResource("4_gwat3")
+text = "Restart"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/Revive_btn" to="PanelContainer" method="_on_revive_btn_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/VBoxContainer/Restart_btn" to="PanelContainer" method="_on_button_pressed"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://dueq2tamlw2dv"]
+
+[ext_resource type="Script" path="res://Scripts/collectables.gd" id="1_1mmxm"]
+[ext_resource type="Shader" path="res://Shaders/shield.gdshader" id="1_ejcwt"]
+[ext_resource type="Texture2D" uid="uid://d1nixmcai0n4l" path="res://icon.svg" id="2_yxi2u"]
+[ext_resource type="Texture2D" uid="uid://c5rkpkijdejsr" path="res://Other resources/color_ramp_for_particles.tres" id="4_hqrjm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tuvop"]
+shader = ExtResource("1_ejcwt")
+shader_parameter/color = Quaternion(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ikkck"]
+radius = 45.0444
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fhlqg"]
+lifetime_randomness = 0.47
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 5.0
+damping_max = 7.0
+scale_min = 3.0
+scale_max = 3.0
+color = Color(1, 1, 0, 1)
+color_ramp = ExtResource("4_hqrjm")
+
+[node name="collectables" type="Node2D"]
+process_priority = 50
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_1mmxm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tuvop")
+texture = ExtResource("2_yxi2u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -35.0
+offset_top = -33.0
+offset_right = 33.0
+offset_bottom = 35.0
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Area2D" type="Area2D" parent="." groups=["collectables"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ikkck")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_fhlqg")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.37
+
+[node name="Timer" type="Timer" parent="GPUParticles2D"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="GPUParticles2D/Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,185 @@
+[gd_scene load_steps=20 format=3 uid="uid://besfidej6hd8x"]
+
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_5d45f"]
+[ext_resource type="Texture2D" uid="uid://kb71f3o51qr7" path="res://Assets/star_bg/bg_03.png" id="1_paqhc"]
+[ext_resource type="PackedScene" uid="uid://c335g07e06p0h" path="res://Scenes/main_menu_bg_anim.tscn" id="2_vy0bl"]
+[ext_resource type="Script" path="res://Scripts/MENU_UI.gd" id="3_arrda"]
+[ext_resource type="FontFile" uid="uid://21oictqqadlm" path="res://Fonts/Chandas.ttf" id="4_1n6g8"]
+[ext_resource type="Texture2D" uid="uid://b0klv6lylihsc" path="res://Assets/celestial obj/earth.png" id="4_4fcx5"]
+[ext_resource type="StyleBox" uid="uid://c2ihwna48r8ut" path="res://Styles/buttons/button.tres" id="5_4x8yg"]
+[ext_resource type="FontFile" uid="uid://b06yogbcdj2jr" path="res://Fonts/Inconsolata-Bold.ttf" id="7_8wxym"]
+[ext_resource type="PackedScene" uid="uid://bou8mvkpy5yw4" path="res://Scenes/mode_menu.tscn" id="7_alx0d"]
+[ext_resource type="PackedScene" uid="uid://dr7inq5n50gq7" path="res://Scenes/out_game_settings.tscn" id="9_2g7ld"]
+[ext_resource type="PackedScene" uid="uid://c3mt1ib48r2rq" path="res://Scenes/audio_panel.tscn" id="9_3v5k5"]
+[ext_resource type="FontFile" uid="uid://tervk4b41k1s" path="res://Fonts/Inconsolata-Regular.ttf" id="9_fgg84"]
+[ext_resource type="PackedScene" uid="uid://bfl24hf3srbdk" path="res://Scenes/ask_sp_control_panel.tscn" id="10_8th44"]
+[ext_resource type="Texture2D" uid="uid://b24o6yuivx3yf" path="res://Assets/icons/coin.png" id="10_kcfky"]
+
+[sub_resource type="GDScript" id="GDScript_0ejhj"]
+resource_name = "earth"
+script/source = "extends Sprite2D
+
+func _physics_process(delta):
+	self.rotation_degrees-=.01
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ot8re"]
+bg_color = Color(0.0313726, 0.0313726, 0.0313726, 0.294118)
+expand_margin_left = 1400.0
+expand_margin_right = 1400.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_fbvet"]
+font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpvjr"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cebb7"]
+content_margin_right = 11.0
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5d45f")
+
+[node name="bg_anim" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Node2D" parent="bg_anim" instance=ExtResource("2_vy0bl")]
+
+[node name="bg" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="bg"]
+position = Vector2(216, 452)
+scale = Vector2(0.576, 0.678169)
+texture = ExtResource("1_paqhc")
+
+[node name="Sprite2D" type="Sprite2D" parent="bg"]
+position = Vector2(505.5, 261)
+scale = Vector2(0.499375, 0.4975)
+texture = ExtResource("4_4fcx5")
+script = SubResource("GDScript_0ejhj")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 3
+script = ExtResource("3_arrda")
+
+[node name="gui" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/gui"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 79.0
+offset_right = 420.0
+offset_bottom = 225.0
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_1n6g8")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ot8re")
+text = "Celestial Clash"
+label_settings = SubResource("LabelSettings_fbvet")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/gui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayBtn" type="Button" parent="UI/gui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("7_8wxym")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_4x8yg")
+text = "Play"
+
+[node name="SettingsBtn" type="Button" parent="UI/gui/VBoxContainer" groups=["settings_btn2"]]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("7_8wxym")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_4x8yg")
+text = "Settings"
+
+[node name="QuitBtn" type="Button" parent="UI/gui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("7_8wxym")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_4x8yg")
+text = "Quit"
+
+[node name="Control" type="Control" parent="UI/gui"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/gui/Control"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 21.0
+offset_right = 418.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tpvjr")
+
+[node name="total_coins" type="Label" parent="UI/gui/Control/PanelContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_fgg84")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cebb7")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/gui/Control"]
+layout_mode = 0
+offset_left = 252.0
+offset_top = 8.0
+offset_right = 318.0
+offset_bottom = 71.0
+texture = ExtResource("10_kcfky")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="popups" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="mode_menu" parent="popups" instance=ExtResource("7_alx0d")]
+visible = false
+
+[node name="out_game_settings" parent="popups" instance=ExtResource("9_2g7ld")]
+visible = false
+
+[node name="audio_panel" parent="popups" instance=ExtResource("9_3v5k5")]
+visible = false
+
+[node name="ask_sp_control_panel" parent="popups" instance=ExtResource("10_8th44")]
+visible = false
+
+[connection signal="button_down" from="UI/gui/VBoxContainer/PlayBtn" to="." method="_on_play_btn_button_down"]
+[connection signal="pressed" from="UI/gui/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="button_down" from="UI/gui/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_button_down"]
+[connection signal="pressed" from="UI/gui/VBoxContainer/SettingsBtn" to="." method="_on_settings_btn_pressed"]
+[connection signal="button_down" from="UI/gui/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_button_down"]
+[connection signal="pressed" from="UI/gui/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

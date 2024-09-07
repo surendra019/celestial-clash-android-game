@@ -1,0 +1,329 @@
+[gd_scene load_steps=22 format=3 uid="uid://c1dd6gqjs8uxh"]
+
+[ext_resource type="Script" path="res://Scripts/in_game_bg.gd" id="1_aykg7"]
+[ext_resource type="Script" path="res://Scripts/Game_contoller.gd" id="1_wifnb"]
+[ext_resource type="Texture2D" uid="uid://cwm1452yhshvg" path="res://Assets/star_bg/bg_01.png" id="2_ucdfm"]
+[ext_resource type="Shader" path="res://Shaders/beam.gdshader" id="4_jd4xh"]
+[ext_resource type="PackedScene" uid="uid://d4exyq42xifrn" path="res://Scenes/on_screen.tscn" id="5_ak0cb"]
+[ext_resource type="Texture2D" uid="uid://cb0tdcp43f1s6" path="res://Assets/star_bg/bg_02_h.png" id="5_j6g8j"]
+[ext_resource type="PackedScene" uid="uid://cdk0g7loqsces" path="res://Scenes/pause_menu.tscn" id="6_v21g0"]
+[ext_resource type="PackedScene" uid="uid://db3jcqcwaqqqi" path="res://Scenes/panel_container.tscn" id="7_ho1fv"]
+[ext_resource type="PackedScene" uid="uid://yd2r4dmdo4qf" path="res://Scenes/in_game_settings.tscn" id="8_s33rs"]
+[ext_resource type="Texture2D" uid="uid://cw511vsr25a18" path="res://Assets/icons/r_z_axiz.svg" id="9_4h2ej"]
+[ext_resource type="Texture2D" uid="uid://cqkcdumuedgux" path="res://Assets/icons/touch_tutorial.svg" id="10_g057c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vb2ka"]
+size = Vector2(40, 40)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ngf4k"]
+shader = ExtResource("4_jd4xh")
+shader_parameter/beams = 2
+shader_parameter/energy = 3.0
+shader_parameter/roughness = 3
+shader_parameter/frequency = 10
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.0
+shader_parameter/outline_thickness = 0.034
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Vector4(0.91, 1, 1, 1)
+shader_parameter/outline_color = Vector4(0.5, 1, 0.96, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = -0.012
+shader_parameter/fixed_edge_size = 0.5
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dsngq"]
+a = Vector2(-497.653, 0)
+b = Vector2(493.471, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5apnm"]
+size = Vector2(216, 452)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8tjj"]
+size = Vector2(216, 452)
+
+[sub_resource type="GDScript" id="GDScript_booh0"]
+script/source = "extends CanvasLayer
+
+@onready var margin_container = get_node(\"MarginContainer\")
+@onready var texture_progress =  get_node(\"MarginContainer/VBoxContainer/TextureProgressBar\")
+
+func _ready():
+#	margin_container.size = Manager.win_size
+	set_margin()
+	
+
+func set_margin():
+#	var val =  (float(margin_container.get(\"theme_override_constants/margin_left\"))/432)* Manager.win_size.x
+#	print()
+#	margin_container.set(\"theme_override_constants/margin_left\", val)
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_tknki"]
+resource_name = "label_of_tilt_tutorial"
+script/source = "extends Label
+
+@onready var main_control = self.get_parent().get_parent().get_parent()
+var in_game 
+
+func _ready():
+	if get_tree().has_group(\"in_game\"):
+		in_game = get_tree().get_nodes_in_group(\"in_game\")[0]
+
+	start_anim()
+	
+func start_anim():
+	if Manager.space_ship_control == Manager.SPACE_SHIP_CONTROL.TILT:
+		for anim_times in range(0, 3):
+			var twn =  create_tween()
+			twn.tween_property(main_control, \"modulate\", Color(1,1,1,.1), .7)
+			twn.play()
+			await twn.finished
+			var twn2 =  create_tween()
+			twn2.tween_property(main_control, \"modulate\", Color(1,1,1,.5), .7)
+			twn2.play()
+			await twn2.finished
+		set_main_control_visible()
+	pass
+
+func set_main_control_visible():
+	var twn = create_tween()
+	twn.tween_property(main_control, \"visible\", false, .5)
+	twn.play()
+	in_game.disable_touches(false)
+	Manager.tilt_tutorial_done = true
+"
+
+[sub_resource type="GDScript" id="GDScript_17ufg"]
+resource_name = "label_of_touch_tutorial"
+script/source = "extends Label
+
+var in_game
+@onready var main_control = self.get_parent().get_parent().get_parent()
+
+func _ready():
+	if get_tree().has_group(\"in_game\"):
+		in_game = get_tree().get_nodes_in_group(\"in_game\")[0]
+
+	start_anim()
+	
+func start_anim():
+	if Manager.space_ship_control == Manager.SPACE_SHIP_CONTROL.TOUCH:
+		for anim_times in range(0, 3):
+			var twn =  create_tween()
+			twn.tween_property(main_control, \"modulate\", Color(1,1,1,.1), .7)
+			twn.play()
+			await twn.finished
+			var twn2 =  create_tween()
+			twn2.tween_property(main_control, \"modulate\", Color(1,1,1,.5), .7)
+			twn2.play()
+			await twn2.finished
+		set_main_control_visible()
+	pass
+
+func set_main_control_visible():
+	var twn = create_tween()
+	twn.tween_property(main_control, \"visible\", false, .5)
+	twn.play()
+	in_game.disable_touches(false)
+	Manager.touch_tutorial_done = true
+"
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1plt"]
+rough = true
+bounce = 0.69
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n86v1"]
+size = Vector2(20, 400)
+
+[node name="Node2D" type="Node2D" groups=["in_game"]]
+script = ExtResource("1_wifnb")
+
+[node name="BG" type="CanvasLayer" parent="."]
+script = ExtResource("1_aykg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="BG"]
+position = Vector2(216, 452)
+scale = Vector2(0.585366, 0.689024)
+texture = ExtResource("2_ucdfm")
+
+[node name="SpaceShips" type="CanvasLayer" parent="." groups=["space_ships"]]
+layer = 2
+
+[node name="Player" type="Node2D" parent="SpaceShips"]
+z_index = 1
+position = Vector2(216, 780)
+
+[node name="Enemy" type="Node2D" parent="SpaceShips"]
+z_index = 1
+
+[node name="Objects" type="Node2D" parent="SpaceShips" groups=["objects"]]
+
+[node name="Area2D" type="Area2D" parent="SpaceShips/Objects"]
+visible = false
+z_index = 1
+position = Vector2(0, 700)
+scale = Vector2(50, 0.1)
+
+[node name="ColorRect" type="ColorRect" parent="SpaceShips/Objects/Area2D"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.960784, 0.780392, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceShips/Objects/Area2D"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_vb2ka")
+
+[node name="asteroids" type="Node2D" parent="SpaceShips/Objects" groups=["asteroid_group"]]
+
+[node name="collectables" type="Node2D" parent="SpaceShips/Objects"]
+
+[node name="effects" type="Node2D" parent="SpaceShips"]
+
+[node name="shield_particles" type="Sprite2D" parent="SpaceShips/effects"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_ngf4k")
+position = Vector2(250.625, 697)
+scale = Vector2(0.525694, 0.348)
+texture = ExtResource("5_j6g8j")
+
+[node name="Area2D" type="Area2D" parent="SpaceShips/effects/shield_particles"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpaceShips/effects/shield_particles/Area2D"]
+shape = SubResource("SegmentShape2D_dsngq")
+
+[node name="emissions" type="Node2D" parent="SpaceShips/effects"]
+
+[node name="space_ship_control" type="CanvasLayer" parent="." groups=["space_ship_control"]]
+layer = 3
+
+[node name="touch" type="Node2D" parent="space_ship_control"]
+
+[node name="Left" type="TouchScreenButton" parent="space_ship_control/touch"]
+position = Vector2(108, 680)
+shape = SubResource("RectangleShape2D_5apnm")
+
+[node name="Right" type="TouchScreenButton" parent="space_ship_control/touch"]
+position = Vector2(324, 680)
+shape = SubResource("RectangleShape2D_h8tjj")
+
+[node name="Layout" type="CanvasLayer" parent="."]
+layer = 4
+script = SubResource("GDScript_booh0")
+
+[node name="OnScreen" parent="Layout" instance=ExtResource("5_ak0cb")]
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemySpawner" type="Timer" parent="." groups=["enemy_spawner"]]
+autostart = true
+
+[node name="popups" type="CanvasLayer" parent="." groups=["popups"]]
+layer = 5
+
+[node name="in_game_settings" parent="popups" instance=ExtResource("8_s33rs")]
+visible = false
+
+[node name="Control" parent="popups" instance=ExtResource("6_v21g0")]
+visible = false
+
+[node name="game_over" parent="popups" instance=ExtResource("7_ho1fv")]
+visible = false
+
+[node name="tutorial" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="tilt_tutorial" type="Control" parent="tutorial"]
+visible = false
+modulate = Color(1, 1, 1, 0.396078)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 432.0
+offset_bottom = 904.0
+
+[node name="ColorRect" type="ColorRect" parent="tutorial/tilt_tutorial"]
+layout_mode = 2
+offset_right = 432.0
+offset_bottom = 904.0
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="tutorial/tilt_tutorial"]
+layout_mode = 0
+offset_right = 432.0
+offset_bottom = 904.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorial/tilt_tutorial/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="tutorial/tilt_tutorial/CenterContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_4h2ej")
+
+[node name="Label" type="Label" parent="tutorial/tilt_tutorial/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Rotate about z-axis"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_tknki")
+
+[node name="touch_tutorial" type="Control" parent="tutorial"]
+visible = false
+modulate = Color(1, 1, 1, 0.396078)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 432.0
+offset_bottom = 904.0
+
+[node name="ColorRect" type="ColorRect" parent="tutorial/touch_tutorial"]
+layout_mode = 2
+offset_right = 432.0
+offset_bottom = 904.0
+color = Color(0.266667, 0.266667, 0.266667, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="tutorial/touch_tutorial"]
+layout_mode = 0
+offset_right = 432.0
+offset_bottom = 904.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorial/touch_tutorial/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="tutorial/touch_tutorial/CenterContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_g057c")
+
+[node name="Label" type="Label" parent="tutorial/touch_tutorial/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Touch to move"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_17ufg")
+
+[node name="wals" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_m1plt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wals"]
+position = Vector2(-10, 700)
+shape = SubResource("RectangleShape2D_n86v1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="wals"]
+position = Vector2(442, 700)
+shape = SubResource("RectangleShape2D_n86v1")
+
+[node name="enemy_pos" type="Node2D" parent="."]
+
+[node name="1" type="Node2D" parent="enemy_pos"]
+position = Vector2(70, -80)
+
+[node name="2" type="Node2D" parent="enemy_pos"]
+position = Vector2(162, -82)
+
+[node name="3" type="Node2D" parent="enemy_pos"]
+position = Vector2(364, -82)
+
+[node name="4" type="Node2D" parent="enemy_pos"]
+position = Vector2(272, -87)
+
+[connection signal="timeout" from="EnemySpawner" to="." method="_on_enemy_spawner_timeout"]

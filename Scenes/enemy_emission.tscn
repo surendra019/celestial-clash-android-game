@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://doxl2gejd3yr0"]
+
+[ext_resource type="Texture2D" uid="uid://cua2l33xo2h3p" path="res://Assets/particles/enemy_particle.png" id="1_fel50"]
+
+[sub_resource type="Gradient" id="Gradient_hv0jj"]
+offsets = PackedFloat32Array(0, 0.996894)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fgmhr"]
+gradient = SubResource("Gradient_hv0jj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1wfv1"]
+emission_shape = 3
+emission_box_extents = Vector3(80, 0, 0)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_fgmhr")
+
+[node name="enemy_emission" type="Node2D"]
+
+[node name="enemy_space_ship_emission" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 23.3333)
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_1wfv1")
+texture = ExtResource("1_fel50")
+lifetime = 2.0
+speed_scale = 1.5

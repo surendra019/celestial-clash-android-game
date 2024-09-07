@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://bou8mvkpy5yw4"]
+
+[ext_resource type="StyleBox" uid="uid://gfbblusd8nrk" path="res://Styles/PanelContainer/new_style_box_flat.tres" id="1_q1r78"]
+[ext_resource type="Script" path="res://Scripts/mode_panel.gd" id="2_vmkis"]
+[ext_resource type="FontFile" uid="uid://dlb1lv683hi78" path="res://Fonts/Poppins/Poppins-Medium.ttf" id="3_wghv1"]
+[ext_resource type="StyleBox" uid="uid://c2ihwna48r8ut" path="res://Styles/buttons/button.tres" id="4_i32sw"]
+[ext_resource type="StyleBox" uid="uid://cf4ohnyejfmuj" path="res://Styles/buttons/close_btn.tres" id="4_llr1w"]
+[ext_resource type="StyleBox" uid="uid://cpn8amhmp2euf" path="res://Styles/PanelContainer/panel_style_in.tres" id="5_fk453"]
+
+[node name="mode_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 432.0
+offset_bottom = 904.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 432.0
+offset_bottom = 904.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_q1r78")
+script = ExtResource("2_vmkis")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" groups=["label_of_mode_menu"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 5.0
+theme_override_fonts/font = ExtResource("3_wghv1")
+text = "Select Mode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="menu_close_btn" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" groups=["close_btn_of_mode_menu"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("4_llr1w")
+text = "  X  "
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_fk453")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="items_list" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Easy" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/items_list" groups=["easy_btn_of_mode_menu"]]
+custom_minimum_size = Vector2(177, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_i32sw")
+text = "Easy
+"
+
+[node name="Medium" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/items_list" groups=["medium_btn_of_mode_menu"]]
+custom_minimum_size = Vector2(177, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_i32sw")
+text = "Medium"
+
+[node name="Hard" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/items_list" groups=["hard_btn_of_mode_menu"]]
+custom_minimum_size = Vector2(177, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_i32sw")
+text = "Hard
+"

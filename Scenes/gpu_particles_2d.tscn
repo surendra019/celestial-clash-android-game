@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce3lvoh41e38f"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w330n"]
+emission_shape = 3
+emission_box_extents = Vector3(500, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 5.0
+scale_max = 5.0
+color = Color(0.756863, 1, 1, 1)
+turbulence_enabled = true
+turbulence_noise_strength = 10.24
+turbulence_noise_speed_random = 4.62
+turbulence_influence_min = 1.0
+turbulence_influence_max = 1.0
+anim_speed_min = 5.52
+anim_speed_max = 5.52
+collision_use_scale = true
+
+[sub_resource type="GDScript" id="GDScript_q3oah"]
+script/source = "extends GPUParticles2D
+
+var enabled = false
+
+"
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+self_modulate = Color(1, 1, 1, 0)
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_w330n")
+lifetime = 0.4
+preprocess = 217.21
+explosiveness = 0.18
+randomness = 1.0
+script = SubResource("GDScript_q3oah")

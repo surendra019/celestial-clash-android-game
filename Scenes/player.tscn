@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://d30gqsiq5505n"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_2u0g5"]
+[ext_resource type="Texture2D" uid="uid://byunmfmnhan60" path="res://Assets/Spaceships/sp (1).png" id="2_axc28"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(0.4, 0.4)
+motion_mode = 1
+platform_wall_layers = 1
+script = ExtResource("1_2u0g5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_axc28")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-4, -106, 87, -26, 95, -43, 119, -13, 121, 91, 109, 107, 62, 107, 25, 61, 33, 111, -3, 118, -38, 104, -34, 63, -78, 103, -124, 100, -129, 86, -129, -17, -102, -43, -90, -29)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-4, -106, 87, -26, 95, -43, 119, -13, 121, 91, 109, 107, 62, 107, 25, 61, 33, 111, -3, 118, -38, 104, -34, 63, -78, 103, -124, 100, -129, 86, -129, -17, -102, -43, -90, -29)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-5, -92.5)
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

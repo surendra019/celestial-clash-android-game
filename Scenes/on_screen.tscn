@@ -1,0 +1,275 @@
+[gd_scene load_steps=19 format=3 uid="uid://d4exyq42xifrn"]
+
+[ext_resource type="Script" path="res://Scripts/OnScreen.gd" id="1_iceu7"]
+[ext_resource type="Texture2D" uid="uid://lsr60eilcd1d" path="res://Assets/Others/multiple_bullets.png" id="2_fd1u5"]
+[ext_resource type="FontFile" uid="uid://dlb1lv683hi78" path="res://Fonts/Poppins/Poppins-Medium.ttf" id="3_gbbgp"]
+[ext_resource type="Texture2D" uid="uid://dbkadtwrhr7v5" path="res://Assets/Others/pause.png" id="3_hy63g"]
+[ext_resource type="Texture2D" uid="uid://ddechsbuxrpyc" path="res://Assets/Others/shield.png" id="5_8uce8"]
+[ext_resource type="FontFile" uid="uid://tervk4b41k1s" path="res://Fonts/Inconsolata-Regular.ttf" id="7_8133s"]
+[ext_resource type="Texture2D" uid="uid://dslnef0ule6qn" path="res://Assets/icons/coin1 (1).png" id="7_g1pdi"]
+[ext_resource type="Texture2D" uid="uid://b24o6yuivx3yf" path="res://Assets/icons/coin.png" id="8_mfyu7"]
+[ext_resource type="Texture2D" uid="uid://bbsxgvu5nqxdu" path="res://Assets/icons/multiplier.png" id="9_dpysb"]
+[ext_resource type="FontFile" uid="uid://b06yogbcdj2jr" path="res://Fonts/Inconsolata-Bold.ttf" id="10_cr7jk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d633k"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7715s"]
+bg_color = Color(0, 0.498039, 0.27451, 1)
+skew = Vector2(0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fk4e1"]
+bg_color = Color(0, 0, 0, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jm6c"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gevs3"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8afb"]
+bg_color = Color(0.282353, 0.282353, 0.282353, 1)
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cc8wj"]
+load_path = "res://.godot/imported/bullets.png-53ce03b10644b30fde4e794e6f6052c0.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wk2fc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="OnScreen" type="Control" groups=["on_screen_controls"]]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iceu7")
+
+[node name="ProgressBar" type="ProgressBar" parent="." groups=["player_health"]]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 23.0
+offset_right = 364.0
+offset_bottom = 35.0
+theme_override_styles/background = SubResource("StyleBoxFlat_d633k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7715s")
+step = 0.001
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." groups=["power_ups_container"]]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 13.0
+offset_right = 870.0
+offset_bottom = 4513.0
+scale = Vector2(0.12, 0.12)
+theme_override_constants/separation = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="VBoxContainer/MarginContainer" groups=["pause_btn"]]
+texture_normal = ExtResource("3_hy63g")
+action = "Pause"
+
+[node name="multiple_bullets" type="TextureProgressBar" parent="VBoxContainer" groups=["multiple_bull_t_progress"]]
+layout_mode = 2
+fill_mode = 3
+texture_under = ExtResource("2_fd1u5")
+texture_progress = ExtResource("2_fd1u5")
+tint_under = Color(1, 1, 1, 0.235294)
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="VBoxContainer/multiple_bullets"]
+visible = false
+texture_normal = ExtResource("2_fd1u5")
+
+[node name="shield" type="TextureProgressBar" parent="VBoxContainer" groups=["shield_t_progress"]]
+layout_mode = 2
+step = 0.01
+fill_mode = 3
+texture_under = ExtResource("5_8uce8")
+texture_progress = ExtResource("5_8uce8")
+tint_under = Color(1, 1, 1, 0.243137)
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="VBoxContainer/shield"]
+visible = false
+texture_normal = ExtResource("5_8uce8")
+
+[node name="status" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 21.0
+offset_top = 121.0
+offset_right = 61.0
+offset_bottom = 144.0
+theme_override_colors/font_color = Color(0.960784, 0.780392, 0, 1)
+theme_override_fonts/font = ExtResource("7_8133s")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fk4e1")
+
+[node name="fps" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 873.0
+offset_right = 60.0
+offset_bottom = 896.0
+theme_override_colors/font_color = Color(0.960784, 0.780392, 0, 1)
+
+[node name="score" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_lock_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="score"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 153.0
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8jm6c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="score/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="score/PanelContainer/HBoxContainer" groups=["score_label"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_gbbgp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="score"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 8.0
+offset_right = 67.0
+offset_bottom = 58.0
+texture = ExtResource("7_g1pdi")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="coins" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -10.0
+offset_bottom = -10.0
+
+[node name="PanelContainer" type="PanelContainer" parent="coins"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 65.0
+offset_right = 153.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8jm6c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="coins/PanelContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="coins/PanelContainer/HBoxContainer" groups=["coin_label"]]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_gbbgp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="coins"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 56.0
+offset_right = 63.0
+offset_bottom = 106.0
+texture = ExtResource("8_mfyu7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="multiplier_power_up" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 286.0
+offset_right = 37.0
+offset_bottom = 373.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gevs3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h8afb")
+value = 20.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="multiplier_power_up"]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 72.0
+offset_right = 27.0
+offset_bottom = 109.0
+texture = ExtResource("9_dpysb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="bullet_speed_power_up" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 395.0
+offset_right = 37.0
+offset_bottom = 482.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gevs3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h8afb")
+value = 20.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="bullet_speed_power_up"]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 72.0
+offset_right = 27.0
+offset_bottom = 109.0
+texture = SubResource("CompressedTexture2D_cc8wj")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="hits_label" type="Label" parent="." groups=["hits_label"]]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 125.0
+offset_right = 394.0
+offset_bottom = 409.0
+theme_override_fonts/font = ExtResource("10_cr7jk")
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_wk2fc")
+text = "8x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="value_changed" from="multiplier_power_up" to="." method="_on_powerup_progress_value_changed"]
+[connection signal="value_changed" from="bullet_speed_power_up" to="." method="_on_bullet_speed_power_up_value_changed"]

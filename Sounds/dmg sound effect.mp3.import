@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bi2ohjajyfpcu"
+path="res://.godot/imported/dmg sound effect.mp3-34b7a86d66945e3c257b84857cda16b4.mp3str"
+
+[deps]
+
+source_file="res://Sounds/dmg sound effect.mp3"
+dest_files=["res://.godot/imported/dmg sound effect.mp3-34b7a86d66945e3c257b84857cda16b4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

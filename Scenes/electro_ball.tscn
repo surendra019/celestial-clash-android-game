@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dewposc26bqgk"]
+
+[ext_resource type="SpriteFrames" uid="uid://bvgtvrjdk4pjo" path="res://Spriteframes/sprite_frames.tres" id="1_2b7px"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3xr3g"]
+radius = 31.0644
+
+[node name="Area2D" type="Area2D" groups=["electro_ball"]]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_2b7px")
+animation = &"main_enemy_ball"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3xr3g")

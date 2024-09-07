@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk6rvkbkbuwgt"]
+
+[ext_resource type="Texture2D" uid="uid://dpory3112mmi0" path="res://Assets/screens/loading.jpg" id="1_1j4i1"]
+[ext_resource type="Script" path="res://Scripts/TextureRect.gd" id="2_ruvy1"]
+[ext_resource type="FontFile" uid="uid://dlb1lv683hi78" path="res://Fonts/Poppins/Poppins-Medium.ttf" id="3_xahyo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vhagi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24q3y"]
+bg_color = Color(0.960784, 0.780392, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 432.0
+offset_bottom = 904.0
+script = ExtResource("2_ruvy1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -192.0
+offset_top = -5.0
+offset_right = 3308.0
+offset_bottom = 1542.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_1j4i1")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+offset_left = 52.0
+offset_top = 860.0
+offset_right = 371.0
+offset_bottom = 864.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vhagi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_24q3y")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 52.0
+offset_top = 830.0
+offset_right = 371.0
+offset_bottom = 853.0
+theme_override_fonts/font = ExtResource("3_xahyo")
+text = "loading..."
