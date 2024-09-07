@@ -89,12 +89,11 @@ MobileAds="res://addons/admob/src/singletons/MobileAds.gd"
 window/size/viewport_width=432
 window/size/viewport_height=904
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_height"
 window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AdmobPlugin/plugin.cfg")
+enabled=PackedStringArray()
 
 [input_devices]
 
